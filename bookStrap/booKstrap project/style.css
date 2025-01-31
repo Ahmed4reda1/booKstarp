@@ -1,0 +1,109 @@
+.card {
+    width: 100%;
+    max-width: 18rem;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .heart-btn {
+    position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  color: blue; 
+  cursor: pointer;
+  transition: color 0.3s ease;
+  }
+
+  .heart-btn.liked {
+    color: red;
+  }
+
+  .card-body .btn-primary {
+    width: 40%;
+  }
+
+  .d-flex .text-success {
+    font-weight: bold;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .card {
+      max-width: 100%;
+    }
+    .card-body .d-flex {
+        justify-content: space-between;
+        align-items: center;
+      }
+
+    .card-body .btn-primary {
+        width: auto; 
+        padding: 5px 15px;
+    }
+  }
+
+  /*catrgories css */ 
+
+  /* Enhance the appearance of the dropdown */
+.dropdown-toggle::after {
+  display: none; /* Hide default dropdown icon */
+}
+
+.dropdown-menu {
+  background-color: #f8f9fa; /* Light background for the dropdown */
+  border-radius: 8px; /* Round corners */
+  border: 1px solid #e0e0e0; /* Subtle border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.dropdown-item {
+  padding: 10px 20px; /* Add padding to each item */
+  transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+.dropdown-item:hover {
+  background-color: #007bff; /* Highlight on hover */
+  color: white; /* Text color change on hover */
+}
+
+/* Custom style for the dropdown button */
+.btn-outline-primary {
+  border: 2px solid #007bff;
+  color: #007bff;
+}
+
+.btn-outline-primary:hover {
+  background-color: #007bff;
+  color: white;
+  border-color: #0056b3;
+}
+/*crat*/ 
+/* Style for the cart icon */
+.cart-icon {
+  position: fixed;
+  bottom: 20px; /* Distance from the bottom of the page */
+  right: 20px; /* Distance from the right side of the page */
+  background-color: #007bff; /* Blue color */
+  color: white;
+  border-radius: 50%; /* Circular shape */
+  padding: 15px; /* Size of the circle */
+  font-size: 2ric; /* Icon size */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  text-decoration: none; /* Remove link underline */
+  transition: background-color 0.3s ease; /* Smooth transition for hover */
+}
+
+.cart-icon:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+/* Optional: Add a little margin to the icon */
+.cart-icon i {
+  margin-right: 3px; /* Adjust this value for more spacing if needed */
+}

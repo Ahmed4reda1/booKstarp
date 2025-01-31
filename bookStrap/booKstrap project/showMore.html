@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show More Books</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top py-3">
+        <div class="container-fluid">
+          <a href="bookstrap.html" class="navbar-brand">📚 Bookstrap</a>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a href="Favorites.html" class="nav-link">Favorites</a>
+            </li> 
+    </nav>
+ <!-- crat -->
+   <!-- Shopping Cart Icon -->
+<a href="cart.html" class="cart-icon">
+    <i class="bi bi-cart-fill"></i>
+  </a>   
+<!-- categories -->
+<div class="container d-flex justify-content-center align-items-center py-3">
+    <div class="dropdown">
+      <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+        Categories
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li><a class="dropdown-item" href="#">All</a></li>
+        <li><a class="dropdown-item" href="#">Fiction</a></li>
+        <li><a class="dropdown-item" href="#">Non-Fiction</a></li>
+        <li><a class="dropdown-item" href="#">Science</a></li>
+        <li><a class="dropdown-item" href="#">History</a></li>
+        <li><a class="dropdown-item" href="#">Mystery</a></li>
+        <li><a class="dropdown-item" href="#">Biography</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  
+
+    <!-- Books Section -->
+    <section class="container my-5">
+        <div class="container mt-4">
+            <div id="book-list" class="row g-4">
+                <!-- Books will be loaded here -->         
+            </div>
+        </div>
+        
+    </section>
+    
+    <!-- Pagination -->
+    <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">2</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        Copyright &copy; 2025 bookstrap.
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
