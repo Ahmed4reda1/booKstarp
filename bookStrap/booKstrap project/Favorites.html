@@ -3,112 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart - Checkout</title>
+    <title>Show More Books</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top py-3">
-    <div class="container-fluid">
-      <a href="bookstrap.html" class="navbar-brand">📚 Bookstrap</a>
-    </div>
-  </nav>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top py-3">
+      <div class="container-fluid">
+        <a href="bookstrap.html" class="navbar-brand">📚 Bookstrap</a>
+    </nav>
+<!-- crat -->
+   <!-- Shopping Cart Icon -->
+   <a href="cart.html" class="cart-icon">
+    <i class="bi bi-cart-fill"></i>
+  </a>
+  <!-- code -->
 
   <div class="container my-5">
-    <h2 class="text-center mb-4">Shopping Cart</h2>
+    <h2 class="text-center mb-4">Favourite Books</h2>
+    <div id="favourite-list" class="row g-4"></div>
+</div>
 
-    <!-- Cart List -->
-    <div id="cart-list" class="row g-4"></div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const favouriteList = document.getElementById("favourite-list");
+      let books = JSON.parse(localStorage.getItem("books")) || [];
 
-    <!-- Checkout Section -->
-    <div id="checkout-section" class="mt-5">
-      <h3>Checkout</h3>
-      <form id="checkout-form">
-        <div class="mb-3">
-          <label for="fullName" class="form-label">Full Name</label>
-          <input type="text" class="form-control" id="fullName" required>
-        </div>
-        <div class="mb-3">
-          <label for="address" class="form-label">Shipping Address</label>
-          <textarea class="form-control" id="address" rows="3" required></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="phone" class="form-label">Phone Number</label>
-          <input type="tel" class="form-control" id="phone" required>
-        </div>
-        <button type="submit" class="btn btn-success">Place Order (Payment on Delivery)</button>
-      </form>
-    </div>
+      let favouriteBooks = books.filter(book => book.liked);
 
-  </div>
+      function loadFavouriteBooks() {
+          favouriteList.innerHTML = "";
+          favouriteBooks.forEach(book => {
+              const bookCard = document.createElement("div");
+              bookCard.classList.add("col-lg-4", "col-md-6", "col-sm-12");
+
+              // Use backticks (`) for template literals
+              bookCard.innerHTML = `
+                  <div class="card shadow-sm border-light rounded">
+                      <div class="position-relative">
+                          <img src="${book.img}" class="card-img-top" alt="${book.title}">
+                      </div>
+                      <div class="card-body">
+                          <h5 class="card-title">${book.title}</h5>
+                          <p class="card-text">by ${book.author}</p>
+                          <div class="d-flex justify-content-between align-items-center">
+                              <span class="text-success fs-5">${book.price}</span>
+                              <button class="btn btn-primary">Add to Cart</button>
+                          </div>
+                      </div>
+                  </div>
+              `;
+
+              favouriteList.appendChild(bookCard);
+          });
+      }
+
+      loadFavouriteBooks();
+  });
+</script>
+
+
+
 
   <!-- Footer -->
-  <footer class="bg-dark text-white text-center py-3">
-    Copyright &copy; 2025 bookstrap.
-  </footer>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const cartList = document.getElementById("cart-list");
-      const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+<footer class="bg-dark text-white text-center py-3">
+  Copyright &copy; 2025 bookstrap.
+</footer>
 
-      if (cartItems.length === 0) {
-        cartList.innerHTML = "<p>Your cart is empty!</p>";
-      } else {
-        cartItems.forEach(item => {
-          const itemCard = document.createElement("div");
-          itemCard.classList.add("col-lg-4", "col-md-6", "col-sm-12");
-
-          itemCard.innerHTML = `
-            <div class="card shadow-sm border-light rounded">
-              <img src="${item.img}" class="card-img-top" alt="${item.title}">
-              <div class="card-body">
-                <h5 class="card-title">${item.title}</h5>
-                <p class="card-text">${item.price}</p>
-              </div>
-            </div>
-          `;
-
-          cartList.appendChild(itemCard);
-        });
-      }
-
-      // Handle Checkout Form Submission
-      const checkoutForm = document.getElementById("checkout-form");
-
-      checkoutForm.addEventListener("submit", function (e) {
-        e.preventDefault(); // Prevent form from submitting
-
-        // Collect user information
-        const fullName = document.getElementById("fullName").value;
-        const address = document.getElementById("address").value;
-        const phone = document.getElementById("phone").value;
-
-        // Create an order object
-        const order = {
-          name: fullName,
-          address: address,
-          phone: phone,
-          books: cartItems,
-          total: calculateTotal(cartItems),
-          paymentMethod: "Payment on Delivery"
-        };
-
-        // Simulate order processing
-        alert(`Thank you for your order, ${fullName}!\n\nYour total is ${order.total}\nWe will deliver your books to ${address}.\n\nPayment on delivery.\nYour order will be processed shortly.`);
-
-        // Clear cart after order
-        localStorage.removeItem("cartItems");
-        cartList.innerHTML = "<p>Your cart is now empty. Thank you for shopping with us!</p>";
-      });
-
-      // Function to calculate the total price of items in the cart
-      function calculateTotal(cartItems) {
-        return cartItems.reduce((total, item) => total + parseFloat(item.price.replace("ج.م", "").trim()), 0).toFixed(2);
-      }
-    });
-  </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
