@@ -1,16 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
     const bookList = document.getElementById("book-list");
 
+    // Generate unique IDs for books
     let books = JSON.parse(localStorage.getItem("books")) || new Array(40).fill().map((_, index) => ({
-        id: index, // Unique identifier for each book
-        title: "Book Title",
+        id: Date.now() + index, // Truly unique identifier
+        title: `Book Title ${index + 1}`,
         author: "Author Name",
-        price: "$XX",
-        img: "showcase/placeholder.svg",
+        price: 0.00, // Numeric value instead of string
+        img: "showcase/placeholder.svg", // Real image path
         liked: false
     }));
 
     let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    let favouriteBooks = JSON.parse(localStorage.getItem("favouriteBooks")) || [];
 
     // Save books data to localStorage
     function saveBooks() {
@@ -22,7 +24,11 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("cartItems", JSON.stringify(cartItems));
     }
 
-    // Function to load books and render them
+    // Save favourite books to localStorage
+    function saveFavourites() {
+        localStorage.setItem("favouriteBooks", JSON.stringify(favouriteBooks));
+    }
+
     function loadBooks() {
         bookList.innerHTML = "";
         books.forEach((book, index) => {
@@ -41,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <h5 class="card-title">${book.title}</h5>
                         <p class="card-text">by ${book.author}</p>
                         <div class="d-flex justify-content-between align-items-center">
-                            <span class="text-success fs-5">${book.price}</span>
+                            <span class="text-success fs-5">ج.م ${book.price.toFixed(2)}</span>
                             <button class="btn btn-primary add-to-cart-btn" data-index="${index}">Add to Cart</button>
                         </div>
                     </div>
@@ -55,31 +61,56 @@ document.addEventListener("DOMContentLoaded", function () {
         addCartListeners();
     }
 
-    // Function to toggle like/unlike on heart button
     function addHeartListeners() {
         document.querySelectorAll('.heart-btn').forEach(button => {
             button.addEventListener('click', function () {
                 const index = this.getAttribute("data-index");
-                books[index].liked = !books[index].liked;
+                const book = books[index];
+
+                // Toggle liked status
+                book.liked = !book.liked;
+
+                // Update favouriteBooks array
+                if (book.liked) {
+                    favouriteBooks.push({
+                        id: book.id,
+                        title: book.title,
+                        price: book.price,
+                        image: book.img
+                    });
+                } else {
+                    favouriteBooks = favouriteBooks.filter(favBook => favBook.id !== book.id);
+                }
+
+                // Save updated data to localStorage
                 saveBooks();
+                saveFavourites();
                 loadBooks();
             });
         });
     }
 
-    // Function to add item to cart
     function addCartListeners() {
         document.querySelectorAll('.add-to-cart-btn').forEach(button => {
             button.addEventListener('click', function () {
                 const index = this.getAttribute("data-index");
                 const book = books[index];
+                
+                // Create cart-compatible object
+                const cartItem = {
+                    id: book.id,
+                    title: book.title,
+                    price: book.price,
+                    image: book.img // Match the cart's expected property name
+                };
 
-                // Check if the book is already in the cart
-                const existingItem = cartItems.find(item => item.id === book.id);
+                const existingItem = cartItems.find(item => item.id === cartItem.id);
                 if (!existingItem) {
-                    cartItems.push(book);  // Add to cart
+                    cartItems.push(cartItem);
                     saveCart();
-                    alert(`${book.title} added to the cart!`);
+                    alert(`${cartItem.title} added to cart!`);
+                } else {
+                    alert(`${cartItem.title} already in cart!`);
                 }
             });
         });
