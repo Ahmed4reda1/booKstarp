@@ -17,6 +17,12 @@ document.addEventListener("DOMContentLoaded", function () {
         cartList.innerHTML = ''; // Clear previous cart items
         let totalPrice = 0;
 
+        if (cartItems.length === 0) {
+            cartList.innerHTML = '<p class="text-center">Your cart is empty.</p>';
+            totalPriceElement.textContent = `Total Price: ج.م 0.00`;
+            return;
+        }
+
         cartItems.forEach((item, index) => {
             const cartItemDiv = document.createElement("div");
             cartItemDiv.classList.add("col-lg-4", "col-md-6", "col-sm-12");
@@ -26,25 +32,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     <img src="${item.image}" class="card-img-top" alt="${item.title}">
                     <div class="card-body">
                         <h5 class="card-title">${item.title}</h5>
-                        <p class="card-text">${item.price}</p>
+                        <p class="card-text">ج.م ${item.price.toFixed(2)}</p> <!-- Display price with currency symbol -->
                         <button class="btn btn-danger remove-btn" data-index="${index}">Remove from Cart</button>
                     </div>
                 </div>
             `;
 
             cartList.appendChild(cartItemDiv);
+            totalPrice += parseFloat(item.price); // Add to the total price
+        });
 
-            // Update the total price
-           // Correctly parse the price by handling the currency symbol
-        const priceStr = item.price.replace(/[^\d.-]/g, ''); // Remove any non-numeric characters except for . and -
-        const price = parseFloat(priceStr); // Convert to float
-
-        // Ensure we're multiplying by the correct amount if the price was in smaller units (like piasters)
-        totalPrice += price; // Add to the total price
-    });
-
-    // Display the total price correctly
-    totalPriceElement.textContent = `Total Price: ج.م ${totalPrice.toFixed(2)}`;
+        totalPriceElement.textContent = `Total Price: ج.م ${totalPrice.toFixed(2)}`; // Display total price with currency symbol
 
         // Add event listeners for remove buttons
         document.querySelectorAll('.remove-btn').forEach(button => {
