@@ -53,6 +53,10 @@
                     const bookCard = document.createElement("div");
                     bookCard.classList.add("col-lg-4", "col-md-6", "col-sm-12");
 
+                    // Fix the price if it's incorrectly parsed
+                    const fixedPrice = book.price * 1000; // Apply the same fix as in addToCart
+                    console.log("Fixed Price:", fixedPrice); // Debugging: Check the fixed price
+
                     bookCard.innerHTML = `
                         <div class="card shadow-sm border-light rounded">
                             <div class="position-relative">
@@ -63,7 +67,7 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">${book.title}</h5>
-                                <p class="card-text">Price: ج.م ${book.price.toFixed(2)}</p>
+                                <p class="card-text">Price: ج.م ${fixedPrice.toFixed(2)}</p>
                                 <button class="btn btn-primary">Add to Cart</button>
                             </div>
                         </div>
