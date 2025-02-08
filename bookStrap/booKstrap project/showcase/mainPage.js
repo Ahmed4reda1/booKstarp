@@ -18,17 +18,27 @@ document.addEventListener("DOMContentLoaded", function () {
     function toggleHeart(button) {
         const icon = button.querySelector('i');
         const bookCard = button.closest(".card");
-
-        // Extract book data
+    
+        // Extract the price text
+        const priceText = bookCard.querySelector(".fs-5").textContent.trim(); // Get the price text (e.g., "120 ج.م")
+        console.log("Price Text:", priceText); // Debugging: Check the raw price text
+    
+        // Extract the numeric value
+        const priceNumber = parseFloat(priceText.replace(/[^\d.]/g, '')); // Remove non-numeric characters
+        console.log("Price Number:", priceNumber); // Debugging: Check the extracted number
+    
+        // Create the book data object
         const bookData = {
             title: bookCard.querySelector(".card-title").textContent.trim(),
             image: bookCard.querySelector("img").src,
-            price: parseFloat(bookCard.querySelector(".fs-5").textContent.replace(/[^\d.]/g, '')) // Extract price as a number
+            price: priceNumber // Store the extracted number
         };
-
+    
+        console.log("Book Data:", bookData); // Debugging: Verify the book data
+    
         // Check if the book is already in favourites
         const index = favouriteBooks.findIndex(book => book.title === bookData.title);
-
+    
         if (index === -1) {
             // Add to favourites
             favouriteBooks.push(bookData);
@@ -40,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
             icon.classList.remove('bi-heart-fill', 'text-danger');
             icon.classList.add('bi-heart');
         }
-
+    
         // Save updated favourites to localStorage
         saveFavourites();
     }
